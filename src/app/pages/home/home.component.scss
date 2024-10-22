@@ -1,3 +1,4 @@
+
 .homepage {
   .card-wrapper {
     display: flex;
@@ -6,19 +7,45 @@
     row-gap: 16px;
     margin-bottom: 40px;
   }
+}
+  
+  section{
+    padding: 0;
+    margin: 0;
+  }
+
+  main{
+    width: 100%;
+    color: #fff;
+    background-color: black;
+  }
+
   h2 {
     font-size: 32px;
   }
 
-  .title{
+  .container{
+    
     padding: 20px;
-   margin-left: 70px;
-  font-size: 40px;
+    background-color: #000;
   }
 
-  main{
-    background-color: black;
-    
+  .title{
+   text-align: center;
+   padding: 30px;
+  font-size: 40px;
+  color: #fff;
   }
+
+  
+.card{
+  background-color: #000;
+  color: #fff;
+  
 }
+.card-img-top{
+  border-radius: 50%;
+}
+
+
 
