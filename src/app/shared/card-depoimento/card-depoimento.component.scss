@@ -19,7 +19,7 @@
   }
   mat-card-content {
     display: flex;
-    align-items: start;
+    flex: start;
     gap: 16px;
   }
 }

@@ -1,12 +1,12 @@
 <header class="app-header">
   <mat-toolbar>
     <a routerLink="/">
-      <img src="assets/imagens/logo.png" alt="Logo da aplicação Jornada">
+      <img src="assets/imagens/logo.png" alt="Logo do watch it">
     </a>
     <span class="spacer"></span>
     <div class="links-toolbar">
-      <button mat-button>Vender milhas</button>
-      <button mat-button>Sobre</button>
+      
+      <!--  <button mat-button>Sobre</button>  -->
       <ng-container *ngIf="user$ | async as pessoaUsuaria; else login">
         <a routerLink="/perfil">
           <img src="assets/icones/user.png" alt="Ícone da pessoa usuária">

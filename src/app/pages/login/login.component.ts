@@ -35,6 +35,7 @@ export class LoginComponent {
             this.authService.setToken(response.token);
             // Redirecionar para outra página após o login
             this.router.navigate(['/perfil']);
+            
           } else {
             console.error('Token JWT não recebido');
           }
@@ -44,6 +45,7 @@ export class LoginComponent {
           console.error('Erro no login:', error);
         }
       });
+      
     }
   
   }

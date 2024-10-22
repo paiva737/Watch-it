@@ -14,14 +14,20 @@ export class AutenticacaoInterceptor implements HttpInterceptor {
   constructor(private tokenService: TokenService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if(this.tokenService.possuiToken()) {
+    // Verifica se o token existe
+    if (this.tokenService.possuiToken()) {
       const token = this.tokenService.retornarToken();
-      request = request.clone({
-        setHeaders: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
+      // Verifica se o token não está vazio ou undefined
+      if (token) {
+        // Clona a requisição e adiciona o token ao cabeçalho de autorização
+        request = request.clone({
+          setHeaders: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      }
     }
+    // Sempre retorna a requisição para continuar o fluxo
     return next.handle(request);
   }
 }

@@ -15,7 +15,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { CardBuscaComponent } from './shared/card-busca/card-busca.component';
 import { MatCardModule } from '@angular/material/card';
 import { CardDepoimentoComponent } from './shared/card-depoimento/card-depoimento.component';
-import { FormBuscaComponent } from './shared/form-busca/form-busca.component';
+// import { FormBuscaComponent } from './shared/form-busca/form-busca.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
@@ -29,11 +29,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { BotaoControleComponent } from './shared/botao-controle/botao-controle.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { PromocoesComponent } from './pages/home/promocoes/promocoes.component';
+// import { PromocoesComponent } from './pages/home/promocoes/promocoes.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownUfComponent } from './shared/dropdown-uf/dropdown-uf.component';
 import { SeletorPassageiroComponent } from './shared/seletor-passageiro/seletor-passageiro.component';
-import { DepoimentosComponent } from './pages/home/depoimentos/depoimentos.component';
+// import { DepoimentosComponent } from './pages/home/depoimentos/depoimentos.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FormBaseComponent } from './shared/form-base/form-base.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -54,17 +54,17 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
     FooterComponent,
     CardBuscaComponent,
     CardDepoimentoComponent,
-    FormBuscaComponent,
+    //FormBuscaComponent,
     ModalComponent,
     BotaoControleComponent,
-    PromocoesComponent,
+    // PromocoesComponent,
     DropdownUfComponent,
     SeletorPassageiroComponent,
-    DepoimentosComponent,
+    // DepoimentosComponent,
     LoginComponent,
     FormBaseComponent,
     CadastroComponent,
-    PerfilComponent
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,13 +86,15 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
     MatAutocompleteModule,
     MatRadioModule,
     MatDividerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AutenticacaoInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutenticacaoInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
