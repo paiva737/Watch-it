@@ -1,9 +1,13 @@
+footer{
+  padding-bottom: 40px;
+}
 .app-footer {
   background-color: black;
   color: white;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
+}
   .inner {
     display: flex;
     justify-content: space-between;
@@ -22,4 +26,5 @@
       }
     }
   }
-}
+
+
