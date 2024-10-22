@@ -6,7 +6,7 @@
     <span class="spacer"></span>
     <div class="links-toolbar">
       
-      <!--  <button mat-button>Sobre</button>  -->
+    
       <ng-container *ngIf="user$ | async as pessoaUsuaria; else login">
         <a routerLink="/perfil">
           <img src="assets/icones/user.png" alt="Ícone da pessoa usuária">
@@ -14,7 +14,7 @@
         <button mat-stroked-button color="primary" (click)="logout()">SAIR</button>
       </ng-container>
       <ng-template #login>
-        <button routerLink="/cadastro" mat-raised-button color="primary">CADASTRE-SE</button>
+        <button routerLink="/cadastro" mat-raised-button  class="cadastrar" >CADASTRE-SE</button>
         <button routerLink="/login" mat-stroked-button>LOGIN</button>
       </ng-template>
     </div>

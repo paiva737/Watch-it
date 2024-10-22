@@ -27,9 +27,15 @@
   }
 
   .mat-mdc-outlined-button:not(:disabled) {
-    border-color: #673ab7;
-    color: #673ab7;
+    border-color: #800000;
+    color: #800000;
   }
+
+.cadastrar{
+  color: black;
+  background-color: #800000;
+  border:  solid;
+}
 
 }
 
