@@ -1,4 +1,15 @@
+<h1>Olá, {{ nomeUsuario }}</h1>
 
-<app-form-base
-  (acaoClique)="cadastrar()">
-</app-form-base>
+<form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+  <!-- Campos do formulário -->
+  <label for="nome">Nome:</label>
+  <input id="nome" formControlName="nome" type="text" />
+
+  <label for="email">Email:</label>
+  <input id="email" formControlName="email" type="email" />
+
+  <label for="senha">Senha:</label>
+  <input id="senha" formControlName="senha" type="password" />
+
+  <button type="submit">Cadastrar</button>
+</form>

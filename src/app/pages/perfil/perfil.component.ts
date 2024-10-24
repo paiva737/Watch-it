@@ -12,7 +12,7 @@ import { PessoaUsuaria } from 'src/app/core/types/type';
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss']
 })
-export class PerfilComponent implements OnInit{
+export class PerfilComponent implements OnInit {
   titulo = 'Olá, ';
   textoBotao = 'ATUALIZAR';
   perfilComponent = true;
@@ -28,15 +28,24 @@ export class PerfilComponent implements OnInit{
     private formularioService: FormularioService,
     private userService: UserService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.token = this.tokenService.retornarToken();
+
+    // Acessando o nome diretamente do UserService que decodifica o token JWT
+    this.userService.retornarUser().subscribe(user => {
+      if (user && user.nome) {
+        this.nome = user.nome; // Atribui o nome do usuário
+        this.titulo = 'Olá, ' + this.nome; // Atualiza o título
+      }
+    });
+
+    // Buscar cadastro adicional para preencher o formulário
     this.cadastroService.buscarCadastro().subscribe(cadastro => {
       this.cadastro = cadastro;
-      this.nome = cadastro.nome;
       this.carregarFormulario();
-    })
+    });
   }
 
   carregarFormulario() {
@@ -65,17 +74,17 @@ export class PerfilComponent implements OnInit{
       genero: this.form?.value.genero,
       cidade: this.form?.value.cidade,
       estado: this.form?.value.estado
-    }
+    };
 
     this.cadastroService.editarCadastro(dadosAtualizados).subscribe({
       next: () => {
-        alert('Cadastro editado com sucesso')
+        alert('Cadastro editado com sucesso');
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.log(err)
+        console.log(err);
       }
-    })
+    });
   }
 
   deslogar() {

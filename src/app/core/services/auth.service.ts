@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -7,26 +7,39 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  private apiUrl = environment.apiUrl;
 
-  // Método para fazer o login
+  constructor(private http: HttpClient) {}
+
   login(email: string, senha: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/login`, { email, senha });
+    return this.http.post(`${this.apiUrl}/auth/login`, { email, senha });
   }
 
-
-  // Armazenar o token
   setToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  // Obter o token armazenado
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  // Remover o token (logout)
   removeToken(): void {
     localStorage.removeItem('token');
+  }
+
+  // Adiciona o token JWT no cabeçalho da requisição
+  private adicionarToken() {
+    const token = this.getToken();
+    if (token) {
+      return {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      };
+    }
+    return {};
+  }
+
+  buscarPerfil(): Observable<any> {
+    // Aqui garantimos que o token será enviado
+    return this.http.get(`${this.apiUrl}/auth/perfil`, this.adicionarToken());
   }
 }

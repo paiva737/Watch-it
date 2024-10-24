@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
 import jwt_decode from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
-import { PessoaUsuaria } from '../types/type';
+
+export interface PessoaUsuaria {
+  email: string;
+  nome: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   private userSubject = new BehaviorSubject<PessoaUsuaria | null>(null);
 
   constructor(private tokenService: TokenService) {
-    if(this.tokenService.possuiToken()) {
+    if (this.tokenService.possuiToken()) {
       this.decodificarJWT();
     }
   }
@@ -41,6 +44,3 @@ export class UserService {
     return this.tokenService.possuiToken();
   }
 }
-
-
-

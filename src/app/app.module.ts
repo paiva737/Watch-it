@@ -12,9 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ContainerComponent } from './shared/container/container.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { CardBuscaComponent } from './shared/card-busca/card-busca.component';
+
 import { MatCardModule } from '@angular/material/card';
-import { CardDepoimentoComponent } from './shared/card-depoimento/card-depoimento.component';
+
 // import { FormBuscaComponent } from './shared/form-busca/form-busca.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,12 +26,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ModalComponent } from './shared/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 import { BotaoControleComponent } from './shared/botao-controle/botao-controle.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 // import { PromocoesComponent } from './pages/home/promocoes/promocoes.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DropdownUfComponent } from './shared/dropdown-uf/dropdown-uf.component';
+
 import { SeletorPassageiroComponent } from './shared/seletor-passageiro/seletor-passageiro.component';
 // import { DepoimentosComponent } from './pages/home/depoimentos/depoimentos.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -52,19 +53,20 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
     ContainerComponent,
     HomeComponent,
     FooterComponent,
-    CardBuscaComponent,
-    CardDepoimentoComponent,
+   
+   
     //FormBuscaComponent,
     ModalComponent,
     BotaoControleComponent,
     // PromocoesComponent,
-    DropdownUfComponent,
+   
     SeletorPassageiroComponent,
     // DepoimentosComponent,
     LoginComponent,
     FormBaseComponent,
     CadastroComponent,
     PerfilComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

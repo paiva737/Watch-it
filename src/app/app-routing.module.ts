@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
@@ -23,7 +24,13 @@ const routes: Routes = [
     path: 'perfil',
     component: PerfilComponent,
     canActivate: [authGuard]
+  },
+  {
+    path: 'dashboard', 
+    component: DashboardComponent,
+    canActivate: [authGuard] 
   }
+
 ];
 
 @NgModule({

@@ -34,7 +34,7 @@ export class LoginComponent {
             // Armazenar o token no localStorage
             this.authService.setToken(response.token);
             // Redirecionar para outra página após o login
-            this.router.navigate(['/perfil']);
+            this.router.navigate(['/dashboard']);
             
           } else {
             console.error('Token JWT não recebido');
