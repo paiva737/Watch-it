@@ -35,9 +35,8 @@ export class UserService {
     this.decodificarJWT();
   }
 
-  logout() {
+  logout(): void {
     this.tokenService.excluirToken();
-    this.userSubject.next(null);
   }
 
   estaLogado() {

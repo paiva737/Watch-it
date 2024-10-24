@@ -7,8 +7,10 @@
     <div class="links-toolbar">
       
       <ng-container *ngIf="user$ | async as pessoaUsuaria; else login">
-        <a routerLink="/perfil">
-          <img src="assets/icones/user.png" alt="Ícone da pessoa usuária">
+        <a routerLink="/dashboard" mat-stroked-button color="primary" class="btn-inicio">Início</a>
+        <a routerLink="/perfil">  
+          
+          <img src="assets/icones/user.png" class="icone-usuario" alt="Ícone da pessoa usuária">
         </a>
         <button mat-stroked-button color="primary" (click)="logout()">SAIR</button>
       </ng-container>

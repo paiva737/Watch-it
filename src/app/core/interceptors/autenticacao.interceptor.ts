@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from '../services/token.service';
 
@@ -13,21 +8,16 @@ export class AutenticacaoInterceptor implements HttpInterceptor {
 
   constructor(private tokenService: TokenService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // Verifica se o token existe
-    if (this.tokenService.possuiToken()) {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.tokenService.possuiToken()) { // Aqui usamos o possuiToken()
       const token = this.tokenService.retornarToken();
-      // Verifica se o token não está vazio ou undefined
-      if (token) {
-        // Clona a requisição e adiciona o token ao cabeçalho de autorização
-        request = request.clone({
-          setHeaders: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-      }
+      const cloned = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return next.handle(cloned);
     }
-    // Sempre retorna a requisição para continuar o fluxo
-    return next.handle(request);
+    return next.handle(req);
   }
 }

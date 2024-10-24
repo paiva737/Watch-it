@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CadastroService } from 'src/app/core/services/cadastro.service';
-import { FormularioService } from 'src/app/core/services/formulario.service';
-import { TokenService } from 'src/app/core/services/token.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { PessoaUsuaria } from 'src/app/core/types/type';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
   selector: 'app-perfil',
@@ -14,77 +11,37 @@ import { PessoaUsuaria } from 'src/app/core/types/type';
 })
 export class PerfilComponent implements OnInit {
   titulo = 'Olá, ';
-  textoBotao = 'ATUALIZAR';
-  perfilComponent = true;
-
-  cadastro!: PessoaUsuaria;
-  token: string = '';
   nome: string = '';
-  form!: FormGroup<any> | null;
+  textoBotao = 'ATUALIZAR';  // Definindo o texto do botão
+  perfilComponent = true;    // Definindo a variável para o componente de perfil
 
   constructor(
-    private cadastroService: CadastroService,
-    private tokenService: TokenService,
-    private formularioService: FormularioService,
     private userService: UserService,
+    private authService: AuthService,
+    private tokenService: TokenService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.token = this.tokenService.retornarToken();
-
-    // Acessando o nome diretamente do UserService que decodifica o token JWT
-    this.userService.retornarUser().subscribe(user => {
-      if (user && user.nome) {
-        this.nome = user.nome; // Atribui o nome do usuário
-        this.titulo = 'Olá, ' + this.nome; // Atualiza o título
-      }
+    this.userService.retornarUser().subscribe(usuario => {
+      this.nome = usuario ? usuario.nome : '';
     });
 
-    // Buscar cadastro adicional para preencher o formulário
-    this.cadastroService.buscarCadastro().subscribe(cadastro => {
-      this.cadastro = cadastro;
-      this.carregarFormulario();
-    });
-  }
-
-  carregarFormulario() {
-    this.form = this.formularioService.getCadastro();
-    this.form?.patchValue({
-      nome: this.cadastro.nome,
-      nascimento: this.cadastro.nascimento,
-      cpf: this.cadastro.cpf,
-      cidade: this.cadastro.cidade,
-      email: this.cadastro.email,
-      senha: this.cadastro.senha,
-      genero: this.cadastro.genero,
-      telefone: this.cadastro.telefone,
-      estado: this.cadastro.estado,
-    });
+    // Verificar se o token está presente no TokenService
+    if (this.tokenService.retornarToken()) {
+      // Aqui estamos apenas carregando o usuário, como exemplo
+      const usuario = this.userService.retornarUser();
+      usuario.subscribe(user => {
+        this.nome = user ? user.nome : '';
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   atualizar() {
-    const dadosAtualizados = {
-      nome: this.form?.value.nome,
-      nascimento: this.form?.value.nascimento,
-      cpf: this.form?.value.cpf,
-      telefone: this.form?.value.telefone,
-      email: this.form?.value.email,
-      senha: this.form?.value.senha,
-      genero: this.form?.value.genero,
-      cidade: this.form?.value.cidade,
-      estado: this.form?.value.estado
-    };
-
-    this.cadastroService.editarCadastro(dadosAtualizados).subscribe({
-      next: () => {
-        alert('Cadastro editado com sucesso');
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+    // Função que pode ser implementada para atualizar o perfil
+    console.log('Perfil atualizado');
   }
 
   deslogar() {
