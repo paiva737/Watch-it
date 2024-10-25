@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmesService } from 'src/app/core/services/filmes.service';
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,101 +9,76 @@ import { FilmesService } from 'src/app/core/services/filmes.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   filmesPopulares: any[] = [];
   filmesFiltrados: any[] = [];
-  termoPesquisa: string = '';
-  generoNomeSelecionado: string = 'Filmes Populares';
-  page = 1;
-  generoSelecionado: number | null = null; // Para rastrear o gênero selecionado
-  
-  generos = [
-    { id: 28, nome: 'Ação' },
-    { id: 12, nome: 'Aventura' },
-    { id: 16, nome: 'Animação' },
-    { id: 35, nome: 'Comédia' },
-    { id: 80, nome: 'Crime' },
-    { id: 99, nome: 'Documentário' },
-    { id: 18, nome: 'Drama' },
-    { id: 10751, nome: 'Família' },
-    { id: 14, nome: 'Fantasia' },
-    { id: 36, nome: 'História' },
-    { id: 27, nome: 'Terror' },
-    { id: 10402, nome: 'Música' },
-    { id: 9648, nome: 'Mistério' },
-    { id: 10749, nome: 'Romance' },
-    { id: 878, nome: 'Ficção Científica' },
-    { id: 10770, nome: 'Filme de TV' },
-    { id: 53, nome: 'Thriller' },
-    { id: 10752, nome: 'Guerra' },
-    { id: 37, nome: 'Faroeste' }
-  ];
+  favoritos: { [id: string]: boolean } = {};
+  generos: any[] = [];
+  termoPesquisa = '';
+  generoNomeSelecionado = 'Filmes Populares';
+  fasHeart = fasHeart;
+  farHeart = farHeart;
+  paginaAtual = 1;
 
-  constructor(private filmesService: FilmesService) { }
+  constructor(private filmesService: FilmesService) {}
 
-  ngOnInit(){
-    this.carregarFilmesPopulares(); // Carrega os filmes populares inicialmente
+  ngOnInit() {
+    this.carregarFilmesPopulares();
+    this.carregarGeneros();
   }
 
   carregarFilmesPopulares() {
-    this.filmesService.getFilmesPopulares(this.page).subscribe({
+    this.filmesService.getFilmesPopulares(this.paginaAtual).subscribe({
       next: (filmes) => {
         this.filmesPopulares = filmes;
         this.filmesFiltrados = filmes;
+        this.generoNomeSelecionado = 'Filmes Populares';
       },
-      error: (err) => {
-        console.error('Erro ao carregar filmes populares:', err);
-      }
+      error: (err) => console.error('Erro ao carregar filmes populares:', err)
     });
   }
 
-  filtrarPorGenero(idGenero: number) {
-    this.page = 1; // Reseta a página ao filtrar por gênero
-    this.generoSelecionado = idGenero;
-    this.filmesService.getFilmesPorGenero(idGenero, this.page).subscribe({
+  carregarGeneros() {
+    this.filmesService.getGeneros().subscribe({
+      next: (generos) => {
+        this.generos = generos;
+      },
+      error: (err) => console.error('Erro ao carregar gêneros:', err)
+    });
+  }
+
+  filtrarPorGenero(generoId: number, generoNome: string) {
+    this.generoNomeSelecionado = `Filmes do gênero ${generoNome}`;
+    this.filmesService.getFilmesPorGenero(generoId).subscribe({
       next: (filmes) => {
         this.filmesFiltrados = filmes;
-        const generoSelecionado = this.generos.find(genero => genero.id === idGenero);
-        this.generoNomeSelecionado = `Filmes de ${generoSelecionado?.nome}`;
       },
-      error: (err) => {
-        console.error('Erro ao filtrar filmes por gênero:', err);
-      }
+      error: (err) => console.error('Erro ao filtrar por gênero:', err)
     });
-  }
-
-  carregarMaisFilmes() {
-    this.page++; // Incrementa a página
-    if (this.generoSelecionado) {
-      // Carrega mais filmes filtrados pelo gênero
-      this.filmesService.getFilmesPorGenero(this.generoSelecionado, this.page).subscribe({
-        next: (filmes) => {
-          this.filmesFiltrados = [...this.filmesFiltrados, ...filmes]; // Adiciona mais filmes à lista existente
-        },
-        error: (err) => {
-          console.error('Erro ao carregar mais filmes por gênero:', err);
-        }
-      });
-    } else {
-      // Carrega mais filmes populares
-      this.filmesService.getFilmesPopulares(this.page).subscribe({
-        next: (filmes) => {
-          this.filmesFiltrados = [...this.filmesFiltrados, ...filmes]; // Adiciona mais filmes à lista existente
-        },
-        error: (err) => {
-          console.error('Erro ao carregar mais filmes populares:', err);
-        }
-      });
-    }
   }
 
   pesquisarFilmes() {
-    if (this.termoPesquisa) {
-      this.filmesFiltrados = this.filmesPopulares.filter(filme =>
-        filme.title.toLowerCase().includes(this.termoPesquisa.toLowerCase())
-      );
-    } else {
-      this.filmesFiltrados = this.filmesPopulares;
-    }
+    this.filmesFiltrados = this.filmesPopulares.filter(filme =>
+      filme.title.toLowerCase().includes(this.termoPesquisa.toLowerCase())
+    );
   }
+
+  toggleFavorito(id: string) {
+    this.favoritos[id] = !this.favoritos[id];
+  }
+
+  carregarMaisFilmes() {
+    this.paginaAtual++;
+    this.filmesService.getFilmesPopulares(this.paginaAtual).subscribe({
+      next: (novosFilmes) => {
+        this.filmesPopulares.push(...novosFilmes);
+        this.filmesFiltrados.push(...novosFilmes);
+      },
+      error: (err) => console.error('Erro ao carregar mais filmes:', err)
+    });
+  }
+  mostrarFavoritos() {
+    this.generoNomeSelecionado = 'Filmes Favoritados';
+    this.filmesFiltrados = this.filmesPopulares.filter(filme => this.favoritos[filme.id]);
+  }
+  
 }

@@ -14,7 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { FormBuscaComponent } from './shared/form-busca/form-busca.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
@@ -70,6 +70,7 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
   ],
   imports: [
     BrowserModule,
+    FontAwesomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,

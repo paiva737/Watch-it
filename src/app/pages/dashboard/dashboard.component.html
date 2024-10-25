@@ -1,34 +1,46 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" (click)="carregarFilmesPopulares()" style="cursor: pointer;">Todos os Filmes</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-start">
-          <li class="nav-item" *ngFor="let genero of generos">
-            <a class="nav-link" (click)="filtrarPorGenero(genero.id)" style="cursor: pointer;">{{ genero.nome }}</a>
-          </li>
-          <form class="d-flex" (ngSubmit)="pesquisarFilmes()">
-            <input [(ngModel)]="termoPesquisa" name="pesquisa" class="form-control me-2" type="search" placeholder="Pesquisar Filme" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-          </form>
-        </ul>
-       
+  <div class="container-fluid">
+    <a class="navbar-brand" (click)="carregarFilmesPopulares()" style="cursor: pointer;">Todos os Filmes</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngFor="let genero of generos">
+          <a class="nav-link" (click)="filtrarPorGenero(genero.id, genero.name)" style="cursor: pointer;">
+            {{ genero.name }}
+          </a>
+        </li>
+
+        
+        <form class="d-flex" (ngSubmit)="pesquisarFilmes()">
+          <input [(ngModel)]="termoPesquisa" name="pesquisa" class="form-control me-2" type="search" placeholder="Pesquisar Filme" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+        </form>
+        
+      </ul>
+      
+      <div class="text-center mt-4">
+        <button class="btn btn-outline-primary" (click)="mostrarFavoritos()">Ver Filmes Favoritados</button>
       </div>
-    </div>
-  </nav>
-  
-  <div class="dashboard-container">
-    <div class="filmes-populares-container">
-      <h2>{{ generoNomeSelecionado }}</h2>
-      <div class="filmes-grid">
-        <div *ngFor="let filme of filmesFiltrados" class="filme-card">
-          <img [src]="'https://image.tmdb.org/t/p/w500' + filme.poster_path" alt="{{ filme.title }}">
-          <h3>{{ filme.title }}</h3>
-          <p>{{ filme.overview | slice: 0:100 }}...</p>
-        </div>
-      </div>
-      <button (click)="carregarMaisFilmes()" class="btn btn-primary">Carregar mais filmes</button>
+      
     </div>
   </div>
-  
+</nav>
+
+<div class="dashboard-container">
+  <div class="filmes-populares-container">
+    <h2>{{ generoNomeSelecionado }}</h2>
+    <div class="filmes-grid">
+      <div *ngFor="let filme of filmesFiltrados" class="filme-card">
+        <img [src]="'https://image.tmdb.org/t/p/w500/' + filme.poster_path" alt="{{ filme.title }}">
+        <h3>{{ filme.title }}</h3>
+        <button (click)="toggleFavorito(filme.id)" class="favorito-btn">
+          <fa-icon [icon]="favoritos[filme.id] ? fasHeart : farHeart"></fa-icon>
+        </button>
+        <p>{{ filme.overview }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center mt-4">
+  <button class="btn btn-primary" (click)="carregarMaisFilmes()">Carregar mais filmes</button>
+</div>

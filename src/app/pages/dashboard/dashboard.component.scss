@@ -34,19 +34,25 @@
     color: #fff;
     margin-left: 15px;
     border-radius: 20px;
+  
   }
 
   .btn-outline-success {
     border-radius: 20px;
     background-color: black;
     color: #fff;
+    cursor: pointer;
+    &:hover{
+      background-color: #800000;
+    }
   }
 }
 
 .dashboard-container {
   background-color: #800000;
   padding: 20px;
-
+  min-height: 100vh;
+  
   .filmes-populares-container {
     h2 {
       color: #fff;
@@ -62,12 +68,18 @@
     justify-content: center;
 
     .filme-card {
-      background-color: #333;
+      background-color: black;
       padding: 10px;
       border-radius: 10px;
       color: #fff;
-      width: 180px;
+      width: 380px;
+      
       text-align: center;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
 
       img {
         width: 100%;
@@ -86,6 +98,10 @@
   }
 }
 
+.text-center{
+  background-color: #800000;
+  padding: 20px;
+}
 
 .btn-primary {
   display: flex;
@@ -102,7 +118,26 @@
   font-size: 1.5em; 
 }
 
+.favorito-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
 
-
+  fa-icon {
+    font-size: 1.5em;
+    color: red;
+  }
+}
+.btn-outline-primary{
+  display: flex;
+  background-color: black;
+  color: #fff;
+  padding: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+&:hover{
+  background-color: red;
   
-
+}
+}
