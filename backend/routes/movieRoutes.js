@@ -1,25 +1,32 @@
 const express = require('express');
-const tmdbService = require('../services/tmdbService');
 const router = express.Router();
+const tmdbService = require('../services/tmdbService');
 
-// Rota para buscar filmes populares
-router.get('/populares', async (req, res) => {
+router.get('/generos', async (req, res) => {
   try {
-    const filmes = await tmdbService.buscarFilmesPopulares();
-    res.json(filmes);
+    const generos = await tmdbService.buscarGeneros();
+    res.json(generos);
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao buscar filmes populares' });
+    res.status(500).json({ message: 'Erro ao buscar gêneros', error });
   }
 });
 
-// Rota para buscar detalhes de um filme pelo ID
-router.get('/movies/detalhes/:id', async (req, res) => {
-  const { id } = req.params;
+router.get('/populares', async (req, res) => {
   try {
-    const detalhes = await tmdbService.buscarDetalhesDoFilme(id);
-    res.json(detalhes);
+    const filmesPopulares = await tmdbService.buscarFilmesPopulares();
+    res.json(filmesPopulares);
   } catch (error) {
-    res.status(500).json({ message: `Erro ao buscar detalhes do filme com ID ${id}` });
+    res.status(500).json({ message: 'Erro ao buscar filmes populares', error });
+  }
+});
+
+router.get('/genero/:id', async (req, res) => {
+  const generoId = req.params.id;
+  try {
+    const filmes = await tmdbService.buscarFilmesPorGenero(generoId);
+    res.json(filmes);
+  } catch (error) {
+    res.status(500).json({ message: `Erro ao buscar filmes pelo gênero ${generoId}`, error });
   }
 });
 

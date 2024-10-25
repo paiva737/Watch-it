@@ -4,38 +4,47 @@ const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMmJiZmYwNmUwNDgwOTkwNGY0N
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 const tmdbService = {
-  // Função para buscar filmes populares
   buscarFilmesPopulares: async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/movie/popular`, {
+      const response = await axios.get(`${BASE_URL}/movie/popular?language=pt-BR`, {
         headers: {
           Authorization: TOKEN,
         },
-        params: {
-          language: 'pt-BR', // Define o idioma para português
-        },
       });
-      return response.data.results; // Retorna a lista de filmes
+      return response.data.results;
     } catch (error) {
       console.error('Erro ao buscar filmes populares:', error);
       throw error;
     }
   },
 
-  // Função para buscar detalhes de um filme pelo ID
-  buscarDetalhesDoFilme: async (id) => {
+  buscarGeneros: async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/movie/${id}`, {
+      const response = await axios.get(`${BASE_URL}/genre/movie/list?language=pt-BR`, {
         headers: {
           Authorization: TOKEN,
         },
       });
-      return response.data; // Retorna os detalhes do filme
+      return response.data.genres;
     } catch (error) {
-      console.error(`Erro ao buscar detalhes do filme com ID ${id}:`, error);
+      console.error('Erro ao buscar gêneros:', error);
       throw error;
     }
-  }
+  },
+
+  buscarFilmesPorGenero: async (id) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/discover/movie?with_genres=${id}&language=pt-BR`, {
+        headers: {
+          Authorization: TOKEN,
+        },
+      });
+      return response.data.results;
+    } catch (error) {
+      console.error(`Erro ao buscar filmes pelo gênero com ID ${id}:`, error);
+      throw error;
+    }
+  },
 };
 
 module.exports = tmdbService;

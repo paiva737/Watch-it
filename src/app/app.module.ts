@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ContainerComponent } from './shared/container/container.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
-
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 
 // import { FormBuscaComponent } from './shared/form-busca/form-busca.component';
@@ -75,6 +75,7 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
+    FormsModule,
     MatButtonToggleModule,
     MatIconModule,
     MatChipsModule,

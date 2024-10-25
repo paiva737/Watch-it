@@ -7,18 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class FilmesService {
 
-    private apiUrl = 'http://localhost:8080/movies'; 
-
+  private apiUrl = 'http://localhost:8080/movies'; // URL do backend
 
   constructor(private http: HttpClient) { }
 
-  // Método para buscar filmes populares
-  getFilmesPopulares(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/populares`); 
+  // Método para buscar filmes populares com paginação
+  getFilmesPopulares(page: number = 1): Observable<any> {
+    return this.http.get(`${this.apiUrl}/populares?page=${page}`);
   }
 
-  // Método para buscar detalhes de um filme pelo ID
-  getFilmeDetalhes(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/detalhes/${id}`); 
+  // Método para buscar filmes por gênero com paginação
+  getFilmesPorGenero(generoId: number, page: number = 1): Observable<any> {
+    return this.http.get(`${this.apiUrl}/genero/${generoId}?page=${page}`);
   }
 }
