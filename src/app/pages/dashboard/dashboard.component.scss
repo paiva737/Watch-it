@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    margin: 0;
+   
+}
+.filmes-container {
+    padding-top: 20px;
+    background-color: #800000; /* Aplica cor no container dos filmes */
+  }
+.filmes-populares-container {
+    
+    background-color: #800000;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+  
+    .dashboard-container {
+        padding: 20px;
+        margin: 0;
+        background-color: #800000; 
+        min-height: 100vh; 
+        padding-top: 0; 
+      
+      }
+
+    h2 {
+      color: #fff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  
+    .filme-card {
+      background-color: black;  
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      display: inline-block;
+  
+      img {
+        border-radius: 8px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+  
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+  
+      p {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+  
+      transition: transform 0.3s ease;
+    }
+  
+    .filme-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  .filmes-populares-container .filme-card {
+    display: inline-block;
+    margin: 10px;
+  }
+  
+  .filmes-populares-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    .filmes-populares-container .filme-card {
+      width: 100%; 
+    }
+  }
+  

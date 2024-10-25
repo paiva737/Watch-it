@@ -33,8 +33,11 @@ export class LoginComponent {
             console.log('Token JWT recebido:', response.token);
             // Armazenar o token no localStorage
             this.authService.setToken(response.token);
-            // Redirecionar para outra página após o login
-            this.router.navigate(['/dashboard']);
+            
+            // Atualiza a página para refletir o estado de login
+            this.router.navigate(['/dashboard']).then(() => {
+              window.location.reload(); // Recarrega a página após o login
+            });
             
           } else {
             console.error('Token JWT não recebido');
@@ -45,10 +48,6 @@ export class LoginComponent {
           console.error('Erro no login:', error);
         }
       });
-      
     }
-  
   }
-  
-  
 }

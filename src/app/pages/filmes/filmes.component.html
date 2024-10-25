@@ -1,0 +1,21 @@
+<div *ngIf="filmesPopulares.length > 0">
+    <div *ngFor="let filme of filmesPopulares">
+      <h3>{{ filme.title }}</h3>
+      <img [src]="'https://image.tmdb.org/t/p/w500' + filme.poster_path" alt="{{ filme.title }}">
+      <p>{{ filme.overview }}</p>
+    </div>
+  </div>
+  
+  <div *ngIf="filmesPopulares.length === 0">
+    <p>Nenhum filme disponível no momento.</p>
+  </div>
+  <div class="filmes-container">
+    <h2>Filmes Populares</h2>
+    <div class="filme-card" *ngFor="let filme of filmesPopulares">
+      <img [src]="'https://image.tmdb.org/t/p/w500/' + filme.poster_path" alt="{{ filme.title }}">
+      <h3>{{ filme.title }}</h3>
+      <p>Nota: {{ filme.vote_average }}</p>
+      <p>Lançamento: {{ filme.release_date | date }}</p>
+    </div>
+  </div>
+  

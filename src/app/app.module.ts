@@ -55,13 +55,13 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
     FooterComponent,
    
    
-    //FormBuscaComponent,
+    
     ModalComponent,
     BotaoControleComponent,
-    // PromocoesComponent,
+   
    
     SeletorPassageiroComponent,
-    // DepoimentosComponent,
+    
     LoginComponent,
     FormBaseComponent,
     CadastroComponent,
